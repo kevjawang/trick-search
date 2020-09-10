@@ -1,9 +1,11 @@
+const { ApolloServer } = require('apollo-server-express')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const db = require('./db')
-const router = require('./routes/entry-router')
+//const router = require('./routes/entry-router')
+const schema = require('./schema')
 
 const app = express()
 const apiPort = 3001
@@ -15,9 +17,17 @@ app.use(bodyParser.json())
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+  res.send('Hello World!')
 })
 
-app.use('/api', router)
+//app.use('/api', router)
 
-app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
+const server = new ApolloServer({
+  introspection: true,
+  playground: true,
+  schema,
+})
+
+server.applyMiddleware({ app })
+
+app.listen(apiPort, () => console.log(`Server running on port ${apiPort}${server.graphqlPath}`))
