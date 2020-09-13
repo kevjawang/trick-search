@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const db = require('./db')
-//const router = require('./routes/entry-router')
 const schema = require('./schema')
 
 const app = express()
@@ -19,8 +18,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
-
-//app.use('/api', router)
 
 const server = new ApolloServer({
   introspection: true,

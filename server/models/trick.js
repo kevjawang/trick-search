@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const EntrySchema = new Schema(
+const TrickSchema = new Schema(
     {
         url: { type: String, required: true},
         timestamp: String,
@@ -14,4 +14,4 @@ const EntrySchema = new Schema(
     }
 )
 
-module.exports = mongoose.model('Entry', EntrySchema)
+module.exports = mongoose.model('Trick', TrickSchema)

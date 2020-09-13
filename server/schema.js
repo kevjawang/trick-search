@@ -1,6 +1,6 @@
 const {merge} = require('lodash')
 const {makeExecutableSchema, gql} = require('apollo-server-express')
-const { Entry, entryResolvers } = require('./gql-schemas/entry')
+const { Trick, trickResolvers } = require('./gql-schemas/trick')
 
 const Query = gql`
   type Query {
@@ -18,11 +18,11 @@ const resolvers = {};
 
 const schema = makeExecutableSchema({
   typeDefs: [
-    Query, Mutation, Entry
+    Query, Mutation, Trick
   ],
   resolvers: merge(
     resolvers,
-    entryResolvers
+    trickResolvers
   )
 })
 
