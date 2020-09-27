@@ -12,10 +12,15 @@ const NavContent: React.FC<NavContentProps>  = ({
   isMobile = false,
 }) => {
   return (
-    <Flex>
+    <Flex
+      flexDirection="column"
+      h="100%"
+    >
       <Router>
-        <List>
+        <List mt="2em">
           <NavItem to="/" title="Home"/>
+          <NavItem to="/" title="Home2"/>
+          <NavItem to="/" title="Home3"/>
         </List>
       </Router>
     </Flex>

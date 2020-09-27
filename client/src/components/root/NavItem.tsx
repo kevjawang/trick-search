@@ -14,7 +14,14 @@ const NavItem: React.FC<NavItemProps> = ({to, title}) => {
   return (
     <ListItem>
       <Link to={to}>
-        <PseudoBox>
+        <PseudoBox
+          mx={-2}
+          display="flex"
+          px="2"
+          py="1"
+          fontSize="1em"
+          outline="none"
+        >
           {/* TODO: i18n */}
           {title}
         </PseudoBox>

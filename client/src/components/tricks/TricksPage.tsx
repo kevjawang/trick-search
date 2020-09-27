@@ -12,9 +12,17 @@ const TricksPage: React.FC<RouteComponentProps> = () => {
 
   return (
     <Box>
-      {tricks?.map((trick) => (
-        <TrickCard trick={trick} />
-      ))}
+      <>
+        <Flex
+          flexDirection="column"
+        >
+          {tricks?.map((trick) => (
+            <Box key={trick.id}>
+              <TrickCard trick={trick} />
+            </Box>
+          ))}
+        </Flex>
+      </>
     </Box>
   )
 }

@@ -10,6 +10,7 @@ const typeDef = gql`
 
   extend type Mutation {
     addTrick(
+      title: String!
       url: String!
       trick_tags: [String!]!
       categories: [String!]!
@@ -17,6 +18,7 @@ const typeDef = gql`
     deleteTrick(id: ID!): Boolean
     updateTrick(
       id: ID!
+      title: String!
       url: String!
       trick_tags: [String!]!
       categories: [String!]!
@@ -25,6 +27,7 @@ const typeDef = gql`
 
   type Trick {
     id: ID!
+    title: String!
     url: String!
     trick_tags: [String!]!
     categories: [String!]!

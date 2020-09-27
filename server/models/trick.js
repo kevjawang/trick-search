@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 
 const TrickSchema = new Schema(
     {
+        title: { type: String, required: true},
         url: { type: String, required: true},
         timestamp: String,
         trick_tags: [String],
