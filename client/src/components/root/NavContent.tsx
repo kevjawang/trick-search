@@ -16,13 +16,11 @@ const NavContent: React.FC<NavContentProps>  = ({
       flexDirection="column"
       h="100%"
     >
-      <Router>
-        <List mt="2em">
-          <NavItem to="/" title="Home"/>
-          <NavItem to="/" title="Home2"/>
-          <NavItem to="/" title="Home3"/>
-        </List>
-      </Router>
+      <List mt="2em">
+        <NavItem to="/" title="Home"/>
+        <NavItem to="/" title="Home2"/>
+        <NavItem to="/notfound" title="Not found"/>
+      </List>
     </Flex>
   )
 }

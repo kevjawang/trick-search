@@ -1,17 +1,19 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense } from 'react'
 import { Spinner } from '@chakra-ui/core'
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
-const TricksPage = lazy(() => import("../tricks/TricksPage"))
+import TricksPage from "../tricks/TricksPage"
+import TrickPage from "../tricks/TrickPage"
+import NotFound from "../common/NotFound"
 
 const Routes: React.FC = () => {
   return (
     <Suspense fallback={<Spinner />}>
-      <Router>
         <Switch>
-          <Route path="/" component={TricksPage}/>
+          <Route path="/" exact component={TricksPage}/>
+          <Route path="/tricks/:id" exact component={TrickPage} />
+          <Route path="/notfound" exact component={NotFound} />
         </Switch>
-      </Router>
     </Suspense>
   )
 }
