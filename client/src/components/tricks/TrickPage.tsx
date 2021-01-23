@@ -1,34 +1,33 @@
 import React from 'react'
-import { RouteComponentProps } from 'react-router-dom'
-import { Flex, Box, Link, Image, Editable, EditablePreview, EditableInput } from '@chakra-ui/core'
-import { useQuery } from '@apollo/client'
-import { Trick } from '../../types'
-import { GET_TRICK } from '../../graphql/queries/getTrick'
+import { useParams } from 'react-router-dom'
+import TrickDisplayForm  from './TrickDisplayForm'
+import Loading from '../common/Loading'
+import { useTrickQuery } from "../../generated/graphql"
 
-interface TrickPageProps {
-  id: string
-}
+interface Params { id: string; }
 
-const TrickCard: React.FC<RouteComponentProps<TrickPageProps>> = ({ match }) => {
-  const id = match.params.id
+const TrickPage = () => {
+  let { id } = useParams<Params>()
 
-  const { data, error, loading } = useQuery<Trick>(GET_TRICK,
-    {variables: { id: id }})
+  const { data, error, loading } = useTrickQuery({variables: {id: id}})
 
-  const trick = data;
+  if (error)
+    {
+      return <div>{error.message}</div>
+    }
+  if (loading)
+  {
+    return <Loading/>
+  }
+
+  if (!data || !data.trick)
+  {
+    return <div>Nothing found</div>
+  }
 
   return (
-    <Flex
-      rounded="lg"
-      p="10px"
-    >
-      <Editable>
-        <EditablePreview/>
-        <EditableInput/>
-      </Editable>
-    </Flex>
-
+    <TrickDisplayForm trick={data.trick} />
   )
 }
 
-export default TrickCard
+export default TrickPage

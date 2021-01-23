@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import SideNav from './SideNav'
 import Routes from './Routes'
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <Router>
       <Box

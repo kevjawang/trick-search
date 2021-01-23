@@ -8,13 +8,10 @@ interface TrickCardProps {
   trick: Trick
 }
 
-const TrickCard: React.FC<TrickCardProps> = ({trick}) => {
+const TrickCard = (props: TrickCardProps) => {
 
   return (
-    <Flex
-      rounded="lg"
-      p="10px"
-    >
+    <Flex rounded="lg" p="10px">
       <Box>
         <Image
           rounded="lg"
@@ -25,10 +22,10 @@ const TrickCard: React.FC<TrickCardProps> = ({trick}) => {
       <Flex flexDirection="column" ml={{ md: 2 }}>
         <Box mt={{base: 4, md: 0 }} >
           <Box mt={1} display="block">
-            <RouterLink to={`/tricks/${trick.id}`}>
-              {trick.title}
+            <RouterLink to={`/tricks/${props.trick.id}`}>
+              {props.trick.title}
             </RouterLink>
-            <Link href={trick.url} isExternal pl="1" >
+            <Link href={props.trick.url} isExternal pl="1" >
               <FaExternalLinkAlt />
             </Link>
           </Box>
@@ -37,15 +34,15 @@ const TrickCard: React.FC<TrickCardProps> = ({trick}) => {
           { /* TODO: i18n */}
           Categories
         </Box>
-        {trick.categories?.map((category) => ( <Box>{category}</Box>) )}
+        <Flex direction="row">
+          {props.trick.categories?.map((category) => ( <Box key={category}>{category}</Box>) )}
+        </Flex>
         <Box mt={1}>
           Tags
         </Box>
         <Flex direction="row">
-          {trick.trick_tags?.map((category) => ( <Box>{category}</Box>) )}
-
+          {props.trick.trick_tags?.map((tag) => ( <Box key={tag}>{tag}</Box>) )}
         </Flex>
-
       </Flex>
     </Flex>
   )

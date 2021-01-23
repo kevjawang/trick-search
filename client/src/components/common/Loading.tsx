@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Spinner, Box } from '@chakra-ui/core'
 
-const Loading: React.FC = () => {
+const Loading = () => {
   return (
     <Box>
       <Spinner />

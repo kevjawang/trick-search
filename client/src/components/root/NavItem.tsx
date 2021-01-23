@@ -8,12 +8,12 @@ interface NavItemProps {
   title: string
 }
 
-const NavItem: React.FC<NavItemProps> = ({to, title}) => {
+const NavItem = (props: NavItemProps) => {
   const { t } = useTranslation()
 
   return (
     <ListItem>
-      <Link to={to}>
+      <Link to={props.to}>
         <PseudoBox
           mx={-2}
           display="flex"
@@ -23,7 +23,7 @@ const NavItem: React.FC<NavItemProps> = ({to, title}) => {
           outline="none"
         >
           {/* TODO: i18n */}
-          {title}
+          {props.title}
         </PseudoBox>
       </Link>
     </ListItem>

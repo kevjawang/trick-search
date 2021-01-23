@@ -8,9 +8,7 @@ interface NavContentProps {
   isMobile?: boolean
 }
 
-const NavContent: React.FC<NavContentProps>  = ({
-  isMobile = false,
-}) => {
+const NavContent = (props: NavContentProps) => {
   return (
     <Flex
       flexDirection="column"
