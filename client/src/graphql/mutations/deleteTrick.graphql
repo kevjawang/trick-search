@@ -1,0 +1,3 @@
+mutation deleteTrick($id: ID!) {
+  deleteTrick(id: $id)
+}

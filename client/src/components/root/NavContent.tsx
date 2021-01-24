@@ -1,5 +1,4 @@
 import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
 import { Flex, List } from '@chakra-ui/core'
 
 import NavItem from './NavItem'
@@ -16,7 +15,6 @@ const NavContent = (props: NavContentProps) => {
     >
       <List mt="2em">
         <NavItem to="/" title="Home"/>
-        <NavItem to="/" title="Home2"/>
         <NavItem to="/notfound" title="Not found"/>
       </List>
     </Flex>

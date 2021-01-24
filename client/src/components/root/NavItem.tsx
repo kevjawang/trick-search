@@ -1,7 +1,7 @@
 import React from 'react'
-import { PseudoBox, ListIcon, ListItem } from '@chakra-ui/core'
+import { PseudoBox, ListItem } from '@chakra-ui/core'
 import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+//import { useTranslation } from 'react-i18next'
 
 interface NavItemProps {
   to: string
@@ -9,7 +9,7 @@ interface NavItemProps {
 }
 
 const NavItem = (props: NavItemProps) => {
-  const { t } = useTranslation()
+  //const { t } = useTranslation()
 
   return (
     <ListItem>

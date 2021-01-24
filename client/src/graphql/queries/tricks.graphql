@@ -1,0 +1,9 @@
+query tricks {
+  tricks {
+    id
+    title
+    url
+    trick_tags
+    categories
+  }
+}
