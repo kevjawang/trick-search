@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Flex } from '@chakra-ui/core'
+import { Box, Flex } from '@chakra-ui/react'
 import Loading from '../common/Loading'
 import TrickCard from './TrickCard'
 import { useTricksQuery } from '../../generated/graphql'
