@@ -1,0 +1,15 @@
+mutation trickUpdateOne(
+  $input: UpdateOneTrickInput!
+  $filter: FilterUpdateOneTrickInput!
+) {
+  trickUpdateOne(record: $input, filter: $filter) {
+    record {
+      _id
+      title
+      url
+      trick_tags
+      categories
+      skateboarder
+    }
+  }
+}

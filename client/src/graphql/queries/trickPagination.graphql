@@ -1,0 +1,23 @@
+query trickPagination($page: Int, $perPage: Int, $filter: FilterFindManyTrickInput) {
+  trickPagination(page: $page, perPage: $perPage, filter: $filter)
+  {
+    count
+    items {
+      _id
+      title
+      url
+      trick_tags
+      categories
+      skateboarder
+    }
+    pageInfo
+    {
+      currentPage
+      perPage
+      pageCount
+      itemCount
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}

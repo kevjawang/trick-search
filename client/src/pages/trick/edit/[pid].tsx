@@ -2,8 +2,8 @@ import React from "react";
 import { Form, Formik, FieldArray, Field } from "formik";
 import { Box, Button, FormLabel, Input } from "@chakra-ui/react";
 import {
-  useUpdateTrickMutation,
-  useTrickQuery,
+  useTrickUpdateOneMutation,
+  useTrickByIdQuery,
 } from "../../../generated/graphql";
 import { useRouter } from "next/router";
 import { Layout } from "../../../components/Layout";
@@ -12,8 +12,8 @@ import { TextInputField } from "../../../components/common/TextInputField";
 const TrickEdit = () => {
   const router = useRouter();
   const id = typeof router.query.pid === "string" ? router.query.pid : "";
-  const { data, error, loading } = useTrickQuery({ variables: { id: id } });
-  const [updateTrick] = useUpdateTrickMutation();
+  const { data, error, loading } = useTrickByIdQuery({ variables: { id: id } });
+  const [updateTrick] = useTrickUpdateOneMutation();
 
   if (loading) {
     return (
@@ -25,7 +25,7 @@ const TrickEdit = () => {
   if (error) {
     return <div>{error.message}</div>;
   }
-  if (!data || !data.trick) {
+  if (!data || !data.trickById) {
     return (
       <Layout>
         <div>Nothing found</div>
@@ -36,14 +36,16 @@ const TrickEdit = () => {
   return (
     <Formik
       initialValues={{
-        title: data.trick.title,
-        url: data.trick.url,
-        trick_tags: data.trick.trick_tags,
-        categories: data.trick.categories,
+        title: data.trickById.title,
+        url: data.trickById.url,
+        trick_tags: data.trickById.trick_tags,
+        categories: data.trickById.categories,
       }}
       onSubmit={async (values) => {
-        await updateTrick({ variables: { id: id, ...values } });
-        router.push("/trick/[pid]", `/trick/${id}`)
+        await updateTrick({
+          variables: { filter: { _id: id }, input: { ...values } },
+        });
+        router.push("/trick/[pid]", `/trick/${id}`);
       }}
     >
       {({ values, isSubmitting }) => (

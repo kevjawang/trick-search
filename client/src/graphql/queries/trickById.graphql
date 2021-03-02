@@ -1,0 +1,10 @@
+query trickById($id: MongoID!) {
+  trickById(_id: $id) {
+    _id
+    title
+    url
+    trick_tags
+    categories
+    skateboarder
+  }
+}

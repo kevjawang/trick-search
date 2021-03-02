@@ -1,0 +1,12 @@
+mutation trickCreateOne($input: CreateOneTrickInput!) {
+  trickCreateOne(record: $input) {
+    record {
+      _id
+      title
+      url
+      trick_tags
+      categories
+      skateboarder
+    }
+  }
+}

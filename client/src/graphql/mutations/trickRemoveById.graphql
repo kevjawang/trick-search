@@ -1,0 +1,6 @@
+mutation trickRemoveById($id: MongoID!) {
+  trickRemoveById(_id: $id)
+  {
+    recordId
+  }
+}

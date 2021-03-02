@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, IconButton, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { useDeleteTrickMutation } from "../generated/graphql";
+import { useTrickRemoveByIdMutation } from "../generated/graphql";
 import { FaPen, FaTrash } from "react-icons/fa";
 import { useRouter } from "next/router";
 
@@ -13,7 +13,7 @@ export const EditDeleteButtons: React.FC<EditDeleteButtonsProps> = ({
   id
 }) => {
   const router = useRouter();
-  const [deletePost] = useDeleteTrickMutation();
+  const [deletePost] = useTrickRemoveByIdMutation();
 
   //TODO: if not auth don't show
 

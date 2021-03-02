@@ -3,12 +3,12 @@ import React from "react";
 import { Layout } from "../components/Layout";
 import { Form, Formik, FieldArray, Field } from "formik";
 import { Box, Button, FormLabel } from "@chakra-ui/react";
-import { useAddTrickMutation } from "../generated/graphql";
+import { useTrickCreateOneMutation } from "../generated/graphql";
 import { TextInputField } from "../components/common/TextInputField";
 
 const CreateTrick = () => {
   const router = useRouter();
-  const [addTrick] = useAddTrickMutation();
+  const [addTrick] = useTrickCreateOneMutation();
 
   return (
     <Layout>
@@ -20,7 +20,7 @@ const CreateTrick = () => {
           categories: [],
         }}
         onSubmit={async (values) => {
-          await addTrick({ variables: { ...values } });
+          await addTrick({ variables: { input: { ...values } } });
           //TODO: stay on page if error?
           router.push("/");
         }}
@@ -42,10 +42,10 @@ const CreateTrick = () => {
                       values.trick_tags.map((item, index) => (
                         <Box key={index}>
                           <Field name={`trick_tags[${index}]`} />
-                          <button onClick={() => remove(index)}>Remove</button>
+                          <Button onClick={() => remove(index)}>Remove</Button>
                         </Box>
                       ))}
-                    <button onClick={() => push("")}>Add</button>
+                    <Button onClick={() => push("")}>Add</Button>
                   </Box>
                 )}
               </FieldArray>

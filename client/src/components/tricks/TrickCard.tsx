@@ -2,7 +2,7 @@ import React from "react";
 import { Flex, Box, Link, Image } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FaExternalLinkAlt } from "react-icons/fa";
-import { Trick } from "../../types";
+import { Trick } from "../../generated/graphql";
 
 interface TrickCardProps {
   trick: Trick;
@@ -21,7 +21,7 @@ const TrickCard = (props: TrickCardProps) => {
       <Flex flexDirection="column" ml={{ md: 2 }}>
         <Box mt={{ base: 4, md: 0 }}>
           <Box mt={1} display="block">
-            <NextLink href="/trick/[pid]" as={`/trick/${props.trick.id}`}>
+            <NextLink href="/trick/[pid]" as={`/trick/${props.trick._id}`}>
               <Link>{props.trick.title}</Link>
             </NextLink>
             <NextLink href={props.trick.url}>
