@@ -4,7 +4,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 
 import { db } from "./db";
-import { schema } from "./schema";
+import schema from "./schema";
+
 
 const app = express();
 const apiPort = 3001;

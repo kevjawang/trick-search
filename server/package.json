@@ -16,13 +16,12 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "lodash": "^4.17.20",
+    "graphql-compose-mongoose": "^9.1.0",
     "mongoose": "^5.10.2",
     "nodemon": "^2.0.4",
     "ts-node": "^9.1.1"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.31",
     "typescript": "^4.2.2"
   }

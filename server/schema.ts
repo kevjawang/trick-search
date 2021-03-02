@@ -1,24 +1,15 @@
-import { merge } from "lodash";
-import { makeExecutableSchema, gql } from "apollo-server-express";
-import { Trick, trickResolvers } from "./gql-schemas/trick";
+import { SchemaComposer } from "graphql-compose";
+import { TrickQuery, TrickMutation } from "./gql-schemas/trick";
 
-const Query = gql`
-  type Query {
-    _empty: String
-  }
-`;
+const schemaComposer = new SchemaComposer();
 
-const Mutation = gql`
-  type Mutation {
-    _empty: String
-  }
-`;
-
-const resolvers = {};
-
-const schema = makeExecutableSchema({
-  typeDefs: [Query, Mutation, Trick],
-  resolvers: merge(resolvers, trickResolvers),
+schemaComposer.Query.addFields({
+  ...TrickQuery,
 });
 
-export { schema };
+schemaComposer.Mutation.addFields({
+  ...TrickMutation,
+});
+
+const gqlSchema =  schemaComposer.buildSchema();
+export default gqlSchema

@@ -43,7 +43,7 @@ const TrickEdit = () => {
       }}
       onSubmit={async (values) => {
         await updateTrick({ variables: { id: id, ...values } });
-        router.back();
+        router.push("/trick/[pid]", `/trick/${id}`)
       }}
     >
       {({ values, isSubmitting }) => (

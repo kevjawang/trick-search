@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from "mongoose";
+import { composeWithMongoose } from "graphql-compose-mongoose";
 
 const TrickSchema = new Schema({
   title: { type: String, required: true },
@@ -9,4 +9,5 @@ const TrickSchema = new Schema({
   skateboarder: String,
 });
 
-export default mongoose.model("Trick", TrickSchema);
+export const Trick = mongoose.model("Trick", TrickSchema);
+export const TrickTC = composeWithMongoose(Trick)
