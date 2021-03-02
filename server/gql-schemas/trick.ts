@@ -1,24 +1,34 @@
-import { Trick, TrickTC } from "../models/trick";
+import { TrickTC } from "../models/trick";
 
 const TrickQuery = {
-  trickById: TrickTC.getResolver("findById"),
-  trickByIds: TrickTC.getResolver("findByIds"),
-  trickOne: TrickTC.getResolver("findOne"),
-  trickMany: TrickTC.getResolver("findMany"),
-  trickCount: TrickTC.getResolver("count"),
-  trickConnection: TrickTC.getResolver("connection"),
-  trickPagination: TrickTC.getResolver("pagination"),
+  trickById: TrickTC.mongooseResolvers.findById(),
+  trickByIds: TrickTC.mongooseResolvers.findByIds(),
+  trickOne: TrickTC.mongooseResolvers.findOne(),
+  trickMany: TrickTC.mongooseResolvers.findMany(),
+  trickCount: TrickTC.mongooseResolvers.count(),
+  trickConnection: TrickTC.mongooseResolvers.connection(),
+  trickPagination: TrickTC.mongooseResolvers.pagination().addFilterArg({
+    name: "search",
+    type: "String",
+    query: (query, value, resolveParams) => {
+      resolveParams.args.sort = {
+        score: { $meta: "textScore" },
+      };
+      query.$text = { $search: value, $language: "en" };
+      resolveParams.projection.score = { $meta: "textScore" };
+    },
+  }),
 };
 
 const TrickMutation = {
-  trickCreateOne: TrickTC.getResolver("createOne"),
-  trickCreateMany: TrickTC.getResolver("createMany"),
-  trickUpdateById: TrickTC.getResolver("updateById"),
-  trickUpdateOne: TrickTC.getResolver("updateOne"),
-  trickUpdateMany: TrickTC.getResolver("updateMany"),
-  trickRemoveById: TrickTC.getResolver("removeById"),
-  trickRemoveOne: TrickTC.getResolver("removeOne"),
-  trickRemoveMany: TrickTC.getResolver("removeMany"),
+  trickCreateOne: TrickTC.mongooseResolvers.createOne(),
+  trickCreateMany: TrickTC.mongooseResolvers.createMany(),
+  trickUpdateById: TrickTC.mongooseResolvers.updateById(),
+  trickUpdateOne: TrickTC.mongooseResolvers.updateOne(),
+  trickUpdateMany: TrickTC.mongooseResolvers.updateMany(),
+  trickRemoveById: TrickTC.mongooseResolvers.removeById(),
+  trickRemoveOne: TrickTC.mongooseResolvers.removeOne(),
+  trickRemoveMany: TrickTC.mongooseResolvers.removeMany(),
 };
 
 export { TrickQuery, TrickMutation };
