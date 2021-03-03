@@ -7,7 +7,7 @@ const createApolloClient = () => {
   return new ApolloClient({
     ssrMode: true, // set to true for SSR
     link: new HttpLink({
-      uri: "http://localhost:3001/graphql",
+      uri: process.env.NEXT_PUBLIC_GRAPHQL_HOST,
     }),
     cache: new InMemoryCache(),
   });
