@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { Layout } from "../../components/Layout";
 import { useTrickByIdQuery } from "../../generated/graphql";
-import { Box, Flex, Link } from "@chakra-ui/react";
+import { Box, Flex, Link, Spinner } from "@chakra-ui/react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { EditDeleteButtons } from "../../components/EditDeleteButtons";
 
@@ -14,7 +14,7 @@ const Trick = () => {
   if (loading) {
     return (
       <Layout>
-        <div>Loading...</div>
+        <Spinner />
       </Layout>
     );
   }

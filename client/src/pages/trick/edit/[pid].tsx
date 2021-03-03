@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Formik, FieldArray, Field } from "formik";
-import { Box, Button, FormLabel, Input } from "@chakra-ui/react";
+import { Box, Button, FormLabel, Input, Spinner } from "@chakra-ui/react";
 import {
   useTrickUpdateOneMutation,
   useTrickByIdQuery,
@@ -18,7 +18,7 @@ const TrickEdit = () => {
   if (loading) {
     return (
       <Layout>
-        <div>Loading...</div>
+        <Spinner />
       </Layout>
     );
   }

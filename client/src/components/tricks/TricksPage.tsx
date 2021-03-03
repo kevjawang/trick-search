@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Box, Flex } from '@chakra-ui/react'
-import Loading from '../common/Loading'
+import React from 'react'
+import { Box, Flex, Spinner } from '@chakra-ui/react'
 import TrickCard from './TrickCard'
 import { useTrickPaginationQuery } from '../../generated/graphql'
 import { PageNav } from '../PageNav'
@@ -10,11 +9,6 @@ const TricksPage = () => {
   const { pathname, query } = useRouter();
   const page = query.page ? +query.page : 1;
 
-  const [stateA, setStateA] = useState(null);
-  useEffect( () => {
-    setStateA(query)
-  }, []);
-
   const { data, error, loading } = useTrickPaginationQuery({variables: {page: page, perPage: 10}})
 
   if (error)
@@ -23,7 +17,7 @@ const TricksPage = () => {
     }
   if (loading)
   {
-    return <Loading/>
+    return <Spinner />
   }
 
   if (!data)
