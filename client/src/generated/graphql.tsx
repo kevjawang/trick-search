@@ -137,6 +137,7 @@ export type FilterFindManyTrickInput = {
   _operators?: Maybe<FilterFindManyTrickOperatorsInput>;
   OR?: Maybe<Array<FilterFindManyTrickInput>>;
   AND?: Maybe<Array<FilterFindManyTrickInput>>;
+  search?: Maybe<Scalars['String']>;
 };
 
 /** For performance reason this type contains only *indexed* fields. */
