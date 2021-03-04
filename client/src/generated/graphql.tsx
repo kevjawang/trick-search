@@ -24,6 +24,7 @@ export type Query = {
   trickCount?: Maybe<Scalars['Int']>;
   trickConnection?: Maybe<TrickConnection>;
   trickPagination?: Maybe<TrickPagination>;
+  imageFromUrlResolver?: Maybe<Metadata>;
 };
 
 
@@ -74,6 +75,11 @@ export type QueryTrickPaginationArgs = {
   perPage?: Maybe<Scalars['Int']>;
   filter?: Maybe<FilterFindManyTrickInput>;
   sort?: Maybe<SortFindManyTrickInput>;
+};
+
+
+export type QueryImageFromUrlResolverArgs = {
+  _url: Scalars['String'];
 };
 
 export type Trick = {
@@ -247,6 +253,11 @@ export type PaginationInfo = {
   itemCount?: Maybe<Scalars['Int']>;
   hasNextPage?: Maybe<Scalars['Boolean']>;
   hasPreviousPage?: Maybe<Scalars['Boolean']>;
+};
+
+export type Metadata = {
+  __typename?: 'Metadata';
+  image?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -619,6 +630,19 @@ export type TrickUpdateOneMutation = (
   )> }
 );
 
+export type ImageFromUrlQueryVariables = Exact<{
+  _url: Scalars['String'];
+}>;
+
+
+export type ImageFromUrlQuery = (
+  { __typename?: 'Query' }
+  & { imageFromUrlResolver?: Maybe<(
+    { __typename?: 'Metadata' }
+    & Pick<Metadata, 'image'>
+  )> }
+);
+
 export type TrickByIdQueryVariables = Exact<{
   id: Scalars['MongoID'];
 }>;
@@ -766,6 +790,39 @@ export function useTrickUpdateOneMutation(baseOptions?: Apollo.MutationHookOptio
 export type TrickUpdateOneMutationHookResult = ReturnType<typeof useTrickUpdateOneMutation>;
 export type TrickUpdateOneMutationResult = Apollo.MutationResult<TrickUpdateOneMutation>;
 export type TrickUpdateOneMutationOptions = Apollo.BaseMutationOptions<TrickUpdateOneMutation, TrickUpdateOneMutationVariables>;
+export const ImageFromUrlDocument = gql`
+    query imageFromUrl($_url: String!) {
+  imageFromUrlResolver(_url: $_url) {
+    image
+  }
+}
+    `;
+
+/**
+ * __useImageFromUrlQuery__
+ *
+ * To run a query within a React component, call `useImageFromUrlQuery` and pass it any options that fit your needs.
+ * When your component renders, `useImageFromUrlQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useImageFromUrlQuery({
+ *   variables: {
+ *      _url: // value for '_url'
+ *   },
+ * });
+ */
+export function useImageFromUrlQuery(baseOptions: Apollo.QueryHookOptions<ImageFromUrlQuery, ImageFromUrlQueryVariables>) {
+        return Apollo.useQuery<ImageFromUrlQuery, ImageFromUrlQueryVariables>(ImageFromUrlDocument, baseOptions);
+      }
+export function useImageFromUrlLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ImageFromUrlQuery, ImageFromUrlQueryVariables>) {
+          return Apollo.useLazyQuery<ImageFromUrlQuery, ImageFromUrlQueryVariables>(ImageFromUrlDocument, baseOptions);
+        }
+export type ImageFromUrlQueryHookResult = ReturnType<typeof useImageFromUrlQuery>;
+export type ImageFromUrlLazyQueryHookResult = ReturnType<typeof useImageFromUrlLazyQuery>;
+export type ImageFromUrlQueryResult = Apollo.QueryResult<ImageFromUrlQuery, ImageFromUrlQueryVariables>;
 export const TrickByIdDocument = gql`
     query trickById($id: MongoID!) {
   trickById(_id: $id) {

@@ -1,0 +1,6 @@
+query imageFromUrl($_url: String!) {
+  imageFromUrlResolver(_url: $_url)
+  {
+    image
+  }
+}

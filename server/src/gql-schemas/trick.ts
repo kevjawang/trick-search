@@ -31,4 +31,5 @@ const TrickMutation = {
   trickRemoveMany: TrickTC.mongooseResolvers.removeMany(),
 };
 
+
 export { TrickQuery, TrickMutation };

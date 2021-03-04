@@ -14,7 +14,7 @@ const TrickSchema = new Schema({
   },
   trick_tags: [String],
   categories: [String],
-  skateboarder: String,
+  skateboarder: String
 });
 
 TrickSchema.index({

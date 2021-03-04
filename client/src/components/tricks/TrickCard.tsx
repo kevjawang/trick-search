@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Flex, Box, Link, Image } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FaExternalLinkAlt } from "react-icons/fa";
-import { Trick } from "../../generated/graphql";
+import { Trick, useImageFromUrlQuery } from "../../generated/graphql";
 
 interface TrickCardProps {
   trick: Trick;
 }
 
 const TrickCard = (props: TrickCardProps) => {
+  const { data, error, loading } = useImageFromUrlQuery({
+    variables: { _url: props.trick.url },
+  });
+
   return (
     <Flex rounded="lg" p="10px">
       <Box>
         <Image
           rounded="lg"
           width={{ md: 150 }}
-          src="https://img.youtube.com/vi/HChdtctlmNo/0.jpg"
+          src={!loading && !error && data.imageFromUrlResolver.image}
         />
       </Box>
       <Flex flexDirection="column" ml={{ md: 2 }}>
