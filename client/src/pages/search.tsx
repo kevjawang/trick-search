@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Flex, Spinner } from "@chakra-ui/react";
-import TrickCard from "../components/tricks/TrickCard";
+import TrickCard from "../components/TrickCard";
 import { useTrickPaginationQuery } from "../generated/graphql";
 import { PageNav } from "../components/PageNav";
 import { useRouter } from "next/router";

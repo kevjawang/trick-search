@@ -1,36 +1,60 @@
 import React from "react";
 import NextLink from "next/link";
-import { Box, Button, FormControl, Input, Link } from "@chakra-ui/react";
-import { FaHome, FaPlus } from "react-icons/fa";
+import { signIn, signOut, useSession } from "next-auth/client";
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  Heading,
+  Input,
+  InputGroup,
+  Link,
+  Spacer,
+} from "@chakra-ui/react";
+import { FaGithub, FaHome, FaPlus } from "react-icons/fa";
 import { Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 
 export const Header: React.FC = ({}) => {
   const router = useRouter();
+  const [session, loading] = useSession();
 
   return (
-    <Box>
-      <Box>
-        <NextLink href="/" as="/">
-          <Link>
-            <FaHome />
+    <Box bgColor="gray.50" p="2px" borderRadius="lg">
+      <Flex>
+        <Box p="2">
+          <Heading size="md">Finding Clips</Heading>
+        </Box>
+        <Spacer />
+        <Box p="2">
+          <NextLink href="/" as="/">
+            <Link>
+              <FaHome size={28} />
+            </Link>
+          </NextLink>
+        </Box>
+        {session && (
+          <Box p="2">
+            <NextLink href="/create-trick" as="/create-trick">
+              <Link>
+                <FaPlus size={28} />
+              </Link>
+            </NextLink>
+          </Box>
+        )}
+        <Box p="2">
+          <Link href="https://github.com/kevjawang/trick-search" isExternal>
+            <FaGithub size={28} />
           </Link>
-        </NextLink>
-      </Box>
-      <Box>
-        <NextLink href="/create-trick" as="/create-trick">
-          <Link>
-            <FaPlus />
-          </Link>
-        </NextLink>
-      </Box>
-      <Box>
+        </Box>
+      </Flex>
+      <Box m="2px">
         <Formik
           initialValues={{
             searchValue: "",
           }}
           onSubmit={(values) => {
-            console.log(values.searchValue);
             router.push({
               pathname: "/search",
               query: { search: values.searchValue },
@@ -38,14 +62,20 @@ export const Header: React.FC = ({}) => {
           }}
         >
           <Form>
-            <Field name="searchValue">
-              {({ field, form }) => (
-                <FormControl>
-                  <Input {...field} id="searchValue" />
-                </FormControl>
-              )}
-            </Field>
-            <Button type="submit">Search</Button>
+            <InputGroup>
+              <Field name="searchValue">
+                {({ field, form }) => (
+                  <FormControl>
+                    <Input
+                      {...field}
+                      id="searchValue"
+                      placeholder="Search..."
+                    />
+                  </FormControl>
+                )}
+              </Field>
+              <Button type="submit">Search</Button>
+            </InputGroup>
           </Form>
         </Formik>
       </Box>

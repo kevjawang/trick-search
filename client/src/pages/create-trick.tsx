@@ -4,7 +4,7 @@ import { Layout } from "../components/Layout";
 import { Form, Formik, FieldArray, Field } from "formik";
 import { Box, Button, FormLabel } from "@chakra-ui/react";
 import { useTrickCreateOneMutation } from "../generated/graphql";
-import { TextInputField } from "../components/common/TextInputField";
+import { TextInputField } from "../components/TextInputField";
 
 const CreateTrick = () => {
   const router = useRouter();
@@ -18,6 +18,7 @@ const CreateTrick = () => {
           url: "",
           trick_tags: [],
           categories: [],
+          skateboarder: ""
         }}
         onSubmit={async (values) => {
           await addTrick({ variables: { input: { ...values } } });

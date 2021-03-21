@@ -27,6 +27,11 @@ const server = new ApolloServer({
   introspection: true,
   playground: true,
   schema,
+  // context: ({ req }) => {
+  //   const token = req.headers.authorization
+  //   const user = getUser(token)
+  //   return { user }
+  // }
 });
 
 server.applyMiddleware({ app });

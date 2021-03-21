@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, ButtonGroup, IconButton, Link } from "@chakra-ui/react";
+import { Box, Button, ButtonGroup, IconButton, Link } from "@chakra-ui/react";
 import { PaginationInfo } from "../generated/graphql";
 import NextLink from "next/link";
 import {
@@ -55,7 +55,7 @@ export const PageNav: React.FC<PageNavProps> = ({
   }
 
   return (
-    <>
+    <Box margin="auto">
       <ButtonGroup isAttached>
         {paginationInfo.hasPreviousPage && (
           <>
@@ -126,6 +126,6 @@ export const PageNav: React.FC<PageNavProps> = ({
           </>
         )}
       </ButtonGroup>
-    </>
+    </Box>
   );
 };

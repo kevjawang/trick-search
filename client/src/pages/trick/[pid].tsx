@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { Layout } from "../../components/Layout";
 import { useTrickByIdQuery } from "../../generated/graphql";
-import { Box, Flex, Link, Spinner } from "@chakra-ui/react";
+import { Box, Flex, HStack, Link, Spinner, Tag } from "@chakra-ui/react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { EditDeleteButtons } from "../../components/EditDeleteButtons";
 
@@ -41,17 +41,21 @@ const Trick = () => {
             </Link>
           </Box>
           <Box mt={1}>Categories</Box>
-          <Flex direction="row">
+          <HStack>
             {data.trickById.categories?.map((category, index) => (
-              <Box key={`displaycategory.${index}`}>{category}</Box>
+              <Tag key={`displaycategory.${index}`} m="2px" p="2px" size="md">
+                {category}
+              </Tag>
             ))}
-          </Flex>
+          </HStack>
           <Box mt={1}>Tags</Box>
-          <Flex direction="row">
+          <HStack>
             {data.trickById.trick_tags?.map((tag, index) => (
-              <Box key={`displaytag.${index}`}>{tag}</Box>
+              <Tag key={`displaytag.${index}`} m="2px" p="2px" size="md">
+                {tag}
+              </Tag>
             ))}
-          </Flex>
+          </HStack>
         </Flex>
       </Box>
     </Layout>
