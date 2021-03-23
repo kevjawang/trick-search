@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import Providers from "next-auth/providers";
+import {use} from "../../../generated/graphql"
 
 const options: NextAuthOptions = {
   providers: [
@@ -9,6 +10,15 @@ const options: NextAuthOptions = {
       clientSecret: process.env.GITHUBSECRET,
     }),
   ],
+  jwt: {
+    secret: process.env.JWT_SECRET
+  },
+  callbacks: {
+    signIn: async function signIn(user, account, metadata) {
+
+      return true
+    }
+  }
 };
 
 export default (req: NextApiRequest, res: NextApiResponse) =>

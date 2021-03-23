@@ -6,8 +6,9 @@ import cors from "cors";
 import schema from "./schema";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import auth from "./auth";
 
-dotenv.config()
+dotenv.config();
 const app = express();
 const apiPort = process.env.PORT;
 
@@ -15,23 +16,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
 
+mongoose.set("useCreateIndex", true)
+
 mongoose
-  .connect(process.env.MONGO_DB ?? "", { useNewUrlParser: true })
+  .connect(process.env.MONGO_DB ?? "", { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log(`connected to MongoDB`)
+  })
   .catch((e) => {
     console.error("Connection error", e.message);
   });
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 const server = new ApolloServer({
   introspection: true,
-  playground: true,
+  //playground: true,
   schema,
-  // context: ({ req }) => {
-  //   const token = req.headers.authorization
-  //   const user = getUser(token)
-  //   return { user }
-  // }
+  //context: ({ req }) => auth
 });
 
 server.applyMiddleware({ app });

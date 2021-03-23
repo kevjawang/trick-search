@@ -278,6 +278,8 @@ export type Mutation = {
   trickRemoveOne?: Maybe<RemoveOneTrickPayload>;
   /** Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.  */
   trickRemoveMany?: Maybe<RemoveManyTrickPayload>;
+  register?: Maybe<RegisterPayload>;
+  loginResolver?: Maybe<LoginPayload>;
 };
 
 
@@ -328,6 +330,18 @@ export type MutationTrickRemoveOneArgs = {
 export type MutationTrickRemoveManyArgs = {
   filter: FilterRemoveManyTrickInput;
   limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type MutationRegisterArgs = {
+  username: Scalars['String'];
+  secret: Scalars['String'];
+};
+
+
+export type MutationLoginResolverArgs = {
+  username: Scalars['String'];
+  secret: Scalars['String'];
 };
 
 export type CreateOneTrickPayload = {
@@ -582,6 +596,19 @@ export type FilterRemoveManyTrick_IdOperatorsInput = {
   in?: Maybe<Array<Maybe<Scalars['MongoID']>>>;
   nin?: Maybe<Array<Maybe<Scalars['MongoID']>>>;
   exists?: Maybe<Scalars['Boolean']>;
+};
+
+export type RegisterPayload = {
+  __typename?: 'RegisterPayload';
+  username: Scalars['String'];
+};
+
+export type LoginPayload = {
+  __typename?: 'LoginPayload';
+  userId?: Maybe<Scalars['MongoID']>;
+  username?: Maybe<Scalars['String']>;
+  token?: Maybe<Scalars['String']>;
+  isAdmin?: Maybe<Scalars['Boolean']>;
 };
 
 export type TrickCreateOneMutationVariables = Exact<{
