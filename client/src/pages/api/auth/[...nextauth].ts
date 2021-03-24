@@ -1,22 +1,75 @@
+import { gql } from "@apollo/client";
 import { NextApiRequest, NextApiResponse } from "next";
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions, User } from "next-auth";
 import Providers from "next-auth/providers";
-import {use} from "../../../generated/graphql"
+import {initializeApollo} from "../../../utils/withApollo"
+
+interface IUser {
+  userId: String;
+  username: String;
+  isAdmin: boolean;
+  token: String;
+}
+
+const LOGIN = gql`
+  mutation loginResolver($username: String!, $secret: String!) {
+    loginResolver(username: $username, secret: $secret) {
+      userId
+      username
+      token
+      isAdmin
+    }
+  }
+`;
+
+const client = initializeApollo();
 
 const options: NextAuthOptions = {
+    // providers: [
+    //     Providers.GitHub({
+    //      clientId: process.env.GITHUB_ID,
+    //      clientSecret: process.env.GITHUBSECRET,
+    //    }),
+    //  ],
   providers: [
-    Providers.GitHub({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUBSECRET,
+    Providers.Credentials({
+      name: "",
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+
+        const { data } = await client.mutate<IUser>({
+          mutation: LOGIN,
+          variables: {
+            username: credentials.username,
+            secret: credentials.password,
+          },
+        });
+
+        if (!data) {
+          return null;
+        }
+
+        return {
+          name: "",
+          userId: data.userId,
+          username: data.username,
+          isAdmin: data.isAdmin,
+          token: data.token,
+        };
+      },
     }),
   ],
-  jwt: {
-    secret: process.env.JWT_SECRET
-  },
   callbacks: {
-    signIn: async function signIn(user, account, metadata) {
+    jwt: async (token, user) => {
+      console.log(user)
+      if (user)
+      {
 
-      return true
+      }
+      return Promise.resolve(token)
     }
   }
 };

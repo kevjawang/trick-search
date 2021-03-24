@@ -6,7 +6,6 @@ import cors from "cors";
 import schema from "./schema";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import auth from "./auth";
 
 dotenv.config();
 const app = express();
@@ -29,7 +28,7 @@ mongoose
 
 const server = new ApolloServer({
   introspection: true,
-  //playground: true,
+  playground: true,
   schema,
   //context: ({ req }) => auth
 });

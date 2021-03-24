@@ -611,6 +611,20 @@ export type LoginPayload = {
   isAdmin?: Maybe<Scalars['Boolean']>;
 };
 
+export type LoginResolverMutationVariables = Exact<{
+  username: Scalars['String'];
+  secret: Scalars['String'];
+}>;
+
+
+export type LoginResolverMutation = (
+  { __typename?: 'Mutation' }
+  & { loginResolver?: Maybe<(
+    { __typename?: 'LoginPayload' }
+    & Pick<LoginPayload, 'userId' | 'username' | 'token' | 'isAdmin'>
+  )> }
+);
+
 export type TrickCreateOneMutationVariables = Exact<{
   input: CreateOneTrickInput;
 }>;
@@ -706,6 +720,42 @@ export type TrickPaginationQuery = (
 );
 
 
+export const LoginResolverDocument = gql`
+    mutation loginResolver($username: String!, $secret: String!) {
+  loginResolver(username: $username, secret: $secret) {
+    userId
+    username
+    token
+    isAdmin
+  }
+}
+    `;
+export type LoginResolverMutationFn = Apollo.MutationFunction<LoginResolverMutation, LoginResolverMutationVariables>;
+
+/**
+ * __useLoginResolverMutation__
+ *
+ * To run a mutation, you first call `useLoginResolverMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginResolverMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginResolverMutation, { data, loading, error }] = useLoginResolverMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *      secret: // value for 'secret'
+ *   },
+ * });
+ */
+export function useLoginResolverMutation(baseOptions?: Apollo.MutationHookOptions<LoginResolverMutation, LoginResolverMutationVariables>) {
+        return Apollo.useMutation<LoginResolverMutation, LoginResolverMutationVariables>(LoginResolverDocument, baseOptions);
+      }
+export type LoginResolverMutationHookResult = ReturnType<typeof useLoginResolverMutation>;
+export type LoginResolverMutationResult = Apollo.MutationResult<LoginResolverMutation>;
+export type LoginResolverMutationOptions = Apollo.BaseMutationOptions<LoginResolverMutation, LoginResolverMutationVariables>;
 export const TrickCreateOneDocument = gql`
     mutation trickCreateOne($input: CreateOneTrickInput!) {
   trickCreateOne(record: $input) {

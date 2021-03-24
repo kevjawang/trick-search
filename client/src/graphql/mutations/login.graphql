@@ -1,0 +1,8 @@
+mutation loginResolver($username: String!, $secret: String!) {
+  loginResolver(username: $username, secret: $secret) {
+    userId,
+    username,
+    token,
+    isAdmin
+  }
+}
