@@ -1,6 +1,5 @@
 import React from "react";
 import NextLink from "next/link";
-import { useSession } from "next-auth/client";
 import {
   Box,
   Button,
@@ -15,10 +14,11 @@ import {
 import { FaGithub, FaHome, FaPlus } from "react-icons/fa";
 import { Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
+import { useUser } from "../utils/hooks";
 
 export const Header: React.FC = ({}) => {
   const router = useRouter();
-  const [session, loading] = useSession();
+  const [session, loading] = useUser();
 
   return (
     <Box bgColor="gray.50" p="2px" borderRadius="lg">
@@ -34,7 +34,7 @@ export const Header: React.FC = ({}) => {
             </Link>
           </NextLink>
         </Box>
-        {session && (
+        {session && session.user.isAdmin && (
           <Box p="2">
             <NextLink href="/create-trick" as="/create-trick">
               <Link>

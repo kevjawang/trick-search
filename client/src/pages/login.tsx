@@ -6,7 +6,6 @@ import { Button } from "@chakra-ui/react";
 const Login = ({}) => {
   const [session, loading] = useSession();
 
-  console.log(session)
   return (
     <Layout>
       {!session && <Button onClick={() => signIn()}>Login</Button>}

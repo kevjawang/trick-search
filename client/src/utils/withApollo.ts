@@ -1,20 +1,39 @@
 import { useMemo } from "react";
-import { ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject } from "@apollo/client";
+import {
+  ApolloClient,
+  HttpLink,
+  InMemoryCache,
+  NormalizedCacheObject,
+  ApolloLink,
+} from "@apollo/client";
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
-const createApolloClient = () => {
+const createApolloClient = (authToken) => {
+  const authMiddleware = new ApolloLink((operation, forward) => {
+    if (authToken) {
+      operation.setContext({
+        headers: {
+          authorization: `Bearer ${authToken}`,
+        },
+      });
+    }
+    return forward(operation);
+  });
+
   return new ApolloClient({
     ssrMode: true, // set to true for SSR
-    link: new HttpLink({
-      uri: process.env.NEXT_PUBLIC_GRAPHQL_HOST,
-    }),
+    link: authMiddleware.concat(
+      new HttpLink({
+        uri: process.env.NEXT_PUBLIC_GRAPHQL_HOST,
+      })
+    ),
     cache: new InMemoryCache(),
   });
-}
+};
 
-export function initializeApollo(initialState = null) {
-  const _apolloClient = apolloClient ?? createApolloClient();
+export function initializeApollo(initialState = null, authToken = "") {
+  const _apolloClient = apolloClient ?? createApolloClient(authToken);
 
   // If your page has Next.js data fetching methods that use Apollo Client,
   // the initial state gets hydrated here
@@ -27,6 +46,25 @@ export function initializeApollo(initialState = null) {
     _apolloClient.cache.restore({ ...existingCache, ...initialState });
   }
 
+  if (authToken) {
+    _apolloClient.setLink(
+      new ApolloLink((operation, forward) => {
+        if (authToken) {
+          operation.setContext({
+            headers: {
+              authorization: `Bearer ${authToken}`,
+            },
+          });
+        }
+        return forward(operation);
+      }).concat(
+        new HttpLink({
+          uri: process.env.NEXT_PUBLIC_GRAPHQL_HOST,
+        })
+      )
+    );
+  }
+
   // For SSG and SSR always create a new Apollo Client
   if (typeof window === "undefined") return _apolloClient;
 
@@ -35,7 +73,10 @@ export function initializeApollo(initialState = null) {
   return _apolloClient;
 }
 
-export function useApollo(initialState) {
-  const store = useMemo(() => initializeApollo(initialState), [initialState]);
+export function useApollo(initialState, authToken) {
+  const store = useMemo(() => initializeApollo(initialState, authToken), [
+    initialState,
+    authToken,
+  ]);
   return store;
 }
