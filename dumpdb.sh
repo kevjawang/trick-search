@@ -1,0 +1,1 @@
+docker-compose exec -T mongo sh -c 'mongodump --archive' > db.dump

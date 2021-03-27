@@ -1,5 +1,4 @@
 import express from "express";
-//import bodyparser from "body-parser";
 import cors from "cors";
 import apollo from "apollo-server-express"
 const { ApolloServer } = apollo;
@@ -8,16 +7,12 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import schema from "./gql-schemas/schema.js";
-//import auth from "./auth";
 
 dotenv.config();
 const app = express();
 const apiPort = process.env.PORT;
 
-// app.use(bodyparser.urlencoded({ extended: true }));
 app.use(cors());
-// app.use(app.bodyparser.json())
-//app.use(bodyparser.json());
 
 mongoose.set("useCreateIndex", true);
 
@@ -29,7 +24,7 @@ mongoose.connect(process.env.MONGO_DB, {
     console.log(`connected to MongoDB`);
   })
   .catch((e) => {
-    console.error("Connection error", e.message);
+    console.error("Could not connect to " + process.env.MONGO_DB, e.message);
   });
 
 const server = new ApolloServer({
